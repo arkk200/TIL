@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Example 02.05 - Custom geometry</title>
+    <script type="text/javascript" src="../libs/three.js"></script>
+
+    <script type="text/javascript" src="../libs/stats.js"></script>
+    <script type="text/javascript" src="../libs/dat.gui.js"></script>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div id="Stats-output">
+</div>
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+</div>
+
+<!-- Javascript code that runs our Three.js examples -->
+<script type="text/javascript">
+    function init() {
+        var scene = new THREE.Scene();
+
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        camera.position.x = -20;
+        camera.position.y = 25;
+        camera.position.z = 20;
+        camera.lookAt(new THREE.Vector3(5, 0, 0));
+
+        var spotLight = new THREE.SpotLight(0xffffff);
+        spotLight.position.set(-40, 60, 10);
+        spotLight.castShadow = true;
+        scene.add(spotLight);
+
+        document.getElementById("WebGL-output").appendChild(renderer.domElement);
+
+        var geom = new THREE.BoxGeometry(10, 10, 10);
+
+        var materials = [
+            new THREE.MeshLambertMaterial({opacity: 0.6, color: 0x44ff44, transparent: true}),
+            new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true}),
+            new THREE.MeshPhongMaterial({color: 0xff4555})
+        ];
+
+        var mesh = THREE.SceneUtils.createMultiMaterialObject(geom, materials);
+        mesh.children.forEach(function (e) {
+            e.castShadow = true
+        });
+
+        scene.add(mesh);
+
+        render();
+
+        function render() {
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);
+        }
+    }
+    window.onload = init
+</script>
+</body>
+</html>
