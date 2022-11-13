@@ -14,3 +14,15 @@ const mesh = new THREE.SceneUtils.createMultiMaterailObject(
     materials
 );
 ```
+이때 mesh는 children으로 여러개의 mesh를 가진다.<br>
+따라서 만약 mesh에 그림자를 낼 수 있게 해야할 땐,<br>
+각각의 mesh에 castShadow를 설정 해줘야한다.<br>
+아래 코드로 castShadow를 설정 해줄 수 있다.
+```js
+mesh.children.forEach(m => {m.castShadow = true});
+```
+씬에 추가하는 건 똑같이
+```js
+scene.add(mesh);
+```
+를 해주면 된다.
