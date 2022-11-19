@@ -9,7 +9,7 @@ materials = [
 ```
 THREE.SceneUtils.createMultiMaterailObject() 을 이용해서 메쉬를 만들어준다.
 ```js
-const mesh = new THREE.SceneUtils.createMultiMaterailObject(
+const mesh = THREE.SceneUtils.createMultiMaterailObject(
     new THREE.BoxGeometry(1, 1, 1),
     materials
 );
@@ -19,7 +19,7 @@ const mesh = new THREE.SceneUtils.createMultiMaterailObject(
 각각의 mesh에 castShadow를 설정 해줘야한다.<br>
 아래 코드로 castShadow를 설정 해줄 수 있다.
 ```js
-mesh.children.forEach(m => {m.castShadow = true});
+mesh.children.forEach(m => { m.castShadow = true });
 ```
 씬에 추가하는 건 똑같이
 ```js
